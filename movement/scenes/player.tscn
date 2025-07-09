@@ -1,0 +1,138 @@
+[gd_scene load_steps=21 format=3 uid="uid://jh3aeq2cx7wo"]
+
+[ext_resource type="Script" uid="uid://bgl17516awmpj" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://cuswuk5il838i" path="res://assets/graphics/dune_idle_cycle.png" id="2_smehm"]
+[ext_resource type="Texture2D" uid="uid://db4ndm1xu5ke4" path="res://assets/graphics/dune_run_cycle.png" id="2_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://ck25yrh8reid1" path="res://components/gravity_component.tscn" id="3_qhqgy"]
+[ext_resource type="PackedScene" uid="uid://cuyyqc13yqcem" path="res://components/input_component.tscn" id="4_dqkch"]
+[ext_resource type="PackedScene" uid="uid://b4d4ckii30txo" path="res://components/movement_component.tscn" id="5_qlg0r"]
+[ext_resource type="PackedScene" uid="uid://ba30ld2bpcv2c" path="res://components/jump_componenet.tscn" id="6_tuyoq"]
+[ext_resource type="PackedScene" uid="uid://dpohpw7rarscw" path="res://components/animation_component.tscn" id="7_fjrip"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_oprun"]
+atlas = ExtResource("2_smehm")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_a8ls1"]
+atlas = ExtResource("2_smehm")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_jej6c"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_f1ej7"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_fjrip"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(0, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_smehm"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(24, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ur7pv"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(48, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_y4r1p"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(72, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_d2wvv"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(96, 0, 24, 24)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_3v2ag"]
+atlas = ExtResource("2_tuyoq")
+region = Rect2(120, 0, 24, 24)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_jej6c"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_oprun")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_a8ls1")
+}],
+"loop": true,
+"name": &"idle",
+"speed": 3.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_jej6c")
+}],
+"loop": true,
+"name": &"jump 1",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_f1ej7")
+}],
+"loop": true,
+"name": &"jump 2",
+"speed": 6.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_fjrip")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_smehm")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ur7pv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_y4r1p")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_d2wvv")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_3v2ag")
+}],
+"loop": true,
+"name": &"run",
+"speed": 6.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(114.815, 201.852)
+
+[node name="Player" type="CharacterBody2D"]
+position = Vector2(1, 0)
+scale = Vector2(0.54, 0.54)
+script = ExtResource("1_g2els")
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+texture_filter = 1
+position = Vector2(-7.75008, -89.2316)
+scale = Vector2(17.1582, 16.8495)
+sprite_frames = SubResource("SpriteFrames_jej6c")
+animation = &"jump 2"
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+position = Vector2(9.25923, 12.037)
+shape = SubResource("RectangleShape2D_g2els")
+
+[node name="GravityComponent" parent="." instance=ExtResource("3_qhqgy")]
+
+[node name="MovementComponent" parent="." instance=ExtResource("5_qlg0r")]
+move_speed = 100.0
+
+[node name="JumpComponenet" parent="." instance=ExtResource("6_tuyoq")]
+jump_speed = 550.0
+acceleration = 850.0
+jump_height = 150.0
+jumps = 10
+
+[node name="InputComponent" parent="." instance=ExtResource("4_dqkch")]
+
+[node name="AnimationComponent" parent="." node_paths=PackedStringArray("sprite") instance=ExtResource("7_fjrip")]
+sprite = NodePath("../AnimatedSprite2D")

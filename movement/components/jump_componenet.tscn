@@ -1,0 +1,9 @@
+[gd_scene load_steps=2 format=3 uid="uid://ba30ld2bpcv2c"]
+
+[ext_resource type="Script" uid="uid://c147nd4711mmu" path="res://components/jump_componenet.gd" id="1_dimt1"]
+
+[node name="JumpComponenet" type="Node"]
+script = ExtResource("1_dimt1")
+acceleration = 1090.0
+jump_height = 200.0
+fall_speed = 60.0
