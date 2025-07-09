@@ -130,7 +130,6 @@ move_speed = 100.0
 jump_speed = 550.0
 acceleration = 850.0
 jump_height = 150.0
-jumps = 10
 
 [node name="InputComponent" parent="." instance=ExtResource("4_dqkch")]
 
